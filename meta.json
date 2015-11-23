@@ -4,23 +4,46 @@
 {
     //Required. Inputs the module expects.
     "inputs": [
-        //e.g.
-        /*
         {
-            "id": "from",
-            "title":"From"
+            "id": "id",
+            "title":"The immutable ID of the draft"
+        },
+        {
+            "id": "uploadType",
+            "title":"The type of upload request to the /upload URI"
+        },
+        {
+            "id": "userId",
+            "title":"The user's email address"
         }
-        */
     ],
     //Required. Outputs the module emits.
     "outputs": [
-      //e.g.
-      /*
         {
-            "id": "from",
-            "title":"From"
+            "id": "id",
+            "title":"ID"
+        },
+        {
+            "id": "threadId",
+            "title":"threadId"
+        },
+        {
+            "id": "labelIds",
+            "title":"labelIds"
+        },
+        {
+            "id": "snippet",
+            "title":"snippet"
+        },
+        {
+            "id": "historyId",
+            "title":"historyId"
+        },
+        {
+            "id": "payload",
+            "title":"payload"
         }
-      */
     ],
-    "title": "Google Send Draft" /* Required.A display name for the module */
+    /* Required.A display name for the module */
+    "title": "Google Send Draft"
 }
