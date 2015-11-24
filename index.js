@@ -20,9 +20,9 @@ module.exports = {
             }
         }, this);
 
-        if(!dexter.environment('access_token')) {
+        if(!dexter.environment('google_access_token')) {
 
-            this.fail('A access_code environment variable is required for this module');
+            this.fail('A google_access_code environment variable is required for this module');
         }
     },
 
@@ -37,7 +37,7 @@ module.exports = {
         this.checkAuthOptions(step, dexter);
 
         var oauth2Client = new OAuth2();
-        oauth2Client.setCredentials({access_token: dexter.environment('access_token'), refresh_token: dexter.environment('refresh_token')});
+        oauth2Client.setCredentials({access_token: dexter.environment('google_access_token'), refresh_token: dexter.environment('google_refresh_token')});
 
         google.options({ auth: oauth2Client });
         google.gmail('v1').users.drafts.send({
