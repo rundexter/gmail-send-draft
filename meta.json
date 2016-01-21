@@ -44,7 +44,14 @@
             "title":"payload"
         }
     ],
+    "providers": [{
+        "name": "google",
+        "scopes": [
+            "https://mail.google.com/",
+            "https://www.googleapis.com/auth/gmail.modify",
+            "https://www.googleapis.com/auth/gmail.compose"
+        ]
+    }],
     "icon": "google-plus",
-    /* Required.A display name for the module */
     "title": "Google Send Draft"
 }
