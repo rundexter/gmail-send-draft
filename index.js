@@ -1,31 +1,23 @@
 var _ = require('lodash'),
-  google = require('googleapis'),
-  OAuth2 = google.auth.OAuth2;
+    util = require('./util.js'),
+    google = require('googleapis'),
+    service = google.gmail('v1');
 
-var requireParams = ['id', 'uploadType', 'userId'];
-var pickReqAttr = [
-    'id',
-    'threadId',
-    'labelIds',
-    'snippet',
-    'historyId',
-    'payload'
-];
-module.exports = {
-    checkAuthOptions: function (step, dexter) {
-        _.map(requireParams, function (reqParam) {
-            if(!step.input(reqParam).first()) {
-
-                this.fail('A ' + reqParam +' input variable is required for this module');
-            }
-        }, this);
-
-        if(!dexter.environment('google_access_token')) {
-
-            this.fail('A google_access_code environment variable is required for this module');
-        }
+var pickInputs = {
+        'id': { key: 'resource.id', validate: { req: true } },
+        'userId': { key: 'userId', validate: { req: true } },
+        'uploadType': { key: 'uploadType', validate: { req: true, enum: ['media', 'multipart', 'resumable'] } }
     },
+    pickOutputs = {
+        'id': 'id',
+        'threadId': 'threadId',
+        'labelIds': 'labelIds',
+        'snippet': 'snippet',
+        'historyId': 'historyId',
+        'payload': 'payload'
+    };
 
+module.exports = {
     /**
      * The main entry point for the Dexter module
      *
@@ -33,23 +25,23 @@ module.exports = {
      * @param {AppData} dexter Container for all data used in this workflow.
      */
     run: function(step, dexter) {
+        var OAuth2 = google.auth.OAuth2,
+            oauth2Client = new OAuth2(),
+            credentials = dexter.provider('google').credentials();
+        var inputs = util.pickInputs(step, pickInputs),
+            validateErrors = util.checkValidateErrors(inputs, pickInputs);
 
-        this.checkAuthOptions(step, dexter);
+        if (validateErrors)
+            return this.fail(validateErrors);
 
-        var oauth2Client = new OAuth2();
-        oauth2Client.setCredentials({access_token: dexter.environment('google_access_token'), refresh_token: dexter.environment('google_refresh_token')});
-
+        // set credential
+        oauth2Client.setCredentials({
+            access_token: _.get(credentials, 'access_token')
+        });
         google.options({ auth: oauth2Client });
-        google.gmail('v1').users.drafts.send({
-            auth: oauth2Client,
-            uploadType: step.input('uploadType', null).first(),
-            userId: step.input('userId', null).first(),
-            resource: {
-                id: step.input('id').first()
-            }
-        }, function (err, message) {
+        service.users.drafts.send(inputs, function (err, message) {
 
-            err? this.fail(err) : this.complete(_.pick(message, pickReqAttr));
+            err? this.fail(err) : this.complete(util.pickOutputs(message, pickOutputs));
         }.bind(this));
 
     }
