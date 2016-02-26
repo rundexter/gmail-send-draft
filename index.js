@@ -8,7 +8,7 @@ var _ = require('lodash'),
 var send_msg = function( app, service, user, msg_id, uploadType ) {
     var deferred = Q.defer();
     app.log( 'user ' + user + ' message ' + msg_id + ' type ' + uploadType );
-    var args = { 'userId': user, 'resource': { 'id': msg_id } };
+    var args = { 'userId': user, 'resource': { 'draft': { 'id': msg_id } } };
     if ( uploadType ) args.uploadType = uploadType;
 
     app.log( 'args', args );
