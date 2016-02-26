@@ -1,17 +1,18 @@
 {
-   "name": "gmail-send-draft",
-   "version": "0.0.1",
-   "description": "Sends the specified, existing draft to the recipients in the To, Cc, and Bcc headers",
-   "main": "index.js",
-   "author": "Run Dexter, Inc",
-   "license": "MIT",
-   "private": true,
-   "dependencies": {
-      "googleapis": "^2.1.6",
-      "lodash": "^3.9.3"
-   },
-   "repository": {
-      "type": "git",
-      "url": "https://github.com/rundexter/gmail-send-draft"
-   }
+  "name": "gmail-send-draft",
+  "version": "0.0.1",
+  "description": "Sends the specified, existing draft to the recipients in the To, Cc, and Bcc headers",
+  "main": "index.js",
+  "author": "Run Dexter, Inc",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "googleapis": "^2.1.6",
+    "lodash": "^3.9.3",
+    "q": "^1.4.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rundexter/gmail-send-draft"
+  }
 }
