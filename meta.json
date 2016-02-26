@@ -2,11 +2,10 @@
  * Metadata describing the module operation
  */
 {
-    //Required. Inputs the module expects.
     "inputs": [
         {
             "id": "id",
-            "title":"The immutable ID of the draft"
+            "title":"The immutable IDs of the drafts to send"
         },
         {
             "id": "uploadType",
@@ -17,7 +16,6 @@
             "title":"The user's email address"
         }
     ],
-    //Required. Outputs the module emits.
     "outputs": [
         {
             "id": "id",
@@ -53,5 +51,5 @@
         ]
     }],
     "icon": "google-plus",
-    "title": "Google Send Draft"
+    "title": "Gmail send draft"
 }

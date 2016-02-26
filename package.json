@@ -1,5 +1,5 @@
 {
-   "name": "google-send-draft",
+   "name": "gmail-send-draft",
    "version": "0.0.1",
    "description": "Sends the specified, existing draft to the recipients in the To, Cc, and Bcc headers",
    "main": "index.js",
