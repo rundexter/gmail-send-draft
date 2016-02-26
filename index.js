@@ -8,8 +8,10 @@ var _ = require('lodash'),
 var send_msg = function( app, service, user, msg_id, uploadType ) {
     var deferred = Q.defer();
     app.log( 'user ' + user + ' message ' + msg_id + ' type ' + uploadType );
-    service.users.drafts.send( { 'userId': user, 'uploadType': uploadType, 'resource': { 'id': msg_id } },
-    function( err, response ) {
+    var args = { 'userId': user, 'resource': { 'id': msg_id } };
+    if ( uploadType ) args.uploadType = uploadType;
+
+    service.users.drafts.send( args, function( err, response ) {
         if ( err ) { return deferred.reject( err );        }
         else       { return deferred.resolve( response );  }
     } );
