@@ -15,10 +15,6 @@
             "id": "userId",
             "title":"The user's email address"
         },
-        {
-            "id": "threadId",
-            "title": "The IDs of the threads the drafts belong to"
-        }
     ],
     "outputs": [
         {
