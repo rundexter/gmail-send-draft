@@ -36,7 +36,7 @@ module.exports = {
 
         var ids           = step.input( 'id' );
         var uploadTypes   = step.input( 'uploadType' );
-        var user          = step.input( 'user' ).first();
+        var user          = step.input( 'userId' ).first();
 
         messages = _.zipWith( ids, uploadTypes, function( id, type ) { return { 'id': id, 'type': type } } );
 
