@@ -5,13 +5,10 @@ var _ = require('lodash'),
     service = google.gmail('v1');
 
 
-var send_msg = function( app, service, user, msg_id, uploadType ) {
+var send_msg = function( app, service, user, draft_id, uploadType ) {
     var deferred = Q.defer();
-    app.log( 'user ' + user + ' message ' + msg_id + ' type ' + uploadType );
-    var args = { 'userId': user, 'resource': { 'id': msg_id } }
+    var args = { 'userId': user, 'resource': { 'id': draft_id } }
     if ( uploadType ) args.uploadType = uploadType;
-
-    app.log( 'args', args );
 
     service.users.drafts.send( args, function( err, response ) {
         if ( err ) { return deferred.reject( err );        }
@@ -43,12 +40,11 @@ module.exports = {
         var uploadTypes   = step.input( 'uploadType' );
         var user          = step.input( 'userId' ).first();
 
-        messages = _.zipWith( ids, uploadTypes, function( id, type ) { return { 'id': id, 'type': type } } );
-        this.log( 'messages', messages );
+        drafts = _.zipWith( ids, uploadTypes, function( id, type ) { return { 'id': id, 'type': type } } );
 
         var sends = [ ];
         var app = this;
-        messages.forEach( function( item ) {
+        drafts.forEach( function( item ) {
             sends.push( send_msg( app, service, user, item.id, item.type ) );
         } );
 

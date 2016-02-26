@@ -5,7 +5,7 @@
     "inputs": [
         {
             "id": "id",
-            "title":"The immutable IDs of the drafts to send"
+            "title":"The immutable draft IDs of the drafts to send"
         },
         {
             "id": "uploadType",
