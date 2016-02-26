@@ -40,6 +40,7 @@ module.exports = {
         var user          = step.input( 'userId' ).first();
 
         messages = _.zipWith( ids, uploadTypes, function( id, type ) { return { 'id': id, 'type': type } } );
+        this.log( 'messages', messages );
 
         var sends = [ ];
         var app = this;
